@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "searchCut",
+  "description": "Providing keyboard shortcut for searching",
+  "version": "1.0",
+  "background": {
+      "scripts": ["background.js"]    
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "css": ["compass/stylesheets/myStyle.css"],
+      "js": ["js/jquery-2.1.0.min.js","js/bootstrap.min.js","js/jquery-ui-1.10.4.custom.min.js","js/keycode.js","myScript.js"]
+    }
+  ],
+  "permissions": ["tabs", "webNavigation","storage"]
+}
