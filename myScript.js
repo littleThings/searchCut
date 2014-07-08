@@ -6,6 +6,7 @@ $(function(){
 	searchCut.loadLocalStorage();
 	searchCut.init();
 });
+
 /*
 @ The object of short cut mapping!
 @ Prototype
@@ -31,18 +32,29 @@ var searchCut = {
 		});
 	},
 	loadLocalStorage: function(){
-		/* Setting
+		/* Setting 
 		chrome.storage.local.set({
-			"71":{"url_prefix":"https://www.google.com/?#q=","name":"Google Search"},
-			"73":{"url_prefix":"https://www.google.com/search?hl=zh-TW&site=imghp&tbm=isch&source=hp&q=","name":"Google Image Search"},
-			"77":{"url_prefix":"https://www.google.com/maps/place/","name":"Google Map"}
+			"prefix_key": "ALT",
+			"current_searchCut": {
+				"71":{"url_prefix":"https://www.google.com/?#q=","name":"Google Search"},
+				"73":{"url_prefix":"https://www.google.com/search?hl=zh-TW&site=imghp&tbm=isch&source=hp&q=","name":"Google Image Search"},
+				"77":{"url_prefix":"https://www.google.com/maps/place/","name":"Google Map"}
+			},
+			"origin_searchCut": {
+				"71":{"url_prefix":"https://www.google.com/?#q=","name":"Google Search"},
+				"73":{"url_prefix":"https://www.google.com/search?hl=zh-TW&site=imghp&tbm=isch&source=hp&q=","name":"Google Image Search"},
+				"77":{"url_prefix":"https://www.google.com/maps/place/","name":"Google Map"}
+			}	
 		});
 		*/
+		
 		console.log(keyCode_map);		
 		chrome.storage.local.get(function(items){
-			console.log(items);
-			for (key in items){
-				searchCut.setKeyCode_map(key,items[key].url_prefix,items[key].name,1);
+			console.log(items.current_searchCut);
+			for (key in items.current_searchCut){
+				searchCut.setKeyCode_map(key,
+					items.current_searchCut[key].url_prefix,
+					items.current_searchCut[key].name,1);
 			}
 		})
 	},

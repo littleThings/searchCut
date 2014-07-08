@@ -11,3 +11,9 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function(e){
 	});           
 });
 */
+
+chrome.browserAction.onClicked.addListener(function(){
+	//console.log('Click browse btn!');
+	var win = window.open('searchCut-Setting.html');
+	
+})

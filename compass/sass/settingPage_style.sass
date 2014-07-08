@@ -1,0 +1,64 @@
+@import "compass/css3"
+
+body
+	background: #FCFDF4
+
+.all-short-cut-list
+	background: #C6E8EB
+	thead
+		background: #3F6589
+		color: #FCFDF4
+		tr
+			td
+				vertical-align: middle
+
+
+.container
+	//background: #C6E8EB
+	margin-top: 15px
+
+.display-none
+	display: none
+
+@mixin remove-icon()
+	width: 20px
+	height: 20px
+	+border-radius(25px)	
+	background: red
+	color: white
+	text-align: center
+	border: 2px solid white
+	font-size: 0.8em
+	cursor: pointer
+	margin: auto // horizontal centering
+
+.un-remove-state-icon
+	+remove-icon()
+	+box-shadow(black 1px 1px 5px)	
+
+.remove-state-icon
+	+remove-icon()
+	-webkit-transform: rotate(90deg)
+	+box-shadow(black 1px -1px 5px)
+
+.searchCut-short-cut
+	text-align: right
+
+.short-cut-prefix
+	position: absolute
+	z-index: 20
+	margin-top: 5px
+	margin-left: 10px	
+
+#detail-col-setting
+	background: #EFECCA
+
+.copy-right
+	text-align: center
+
+.switch-checkbox
+	position: relative
+	top: 5px	
+	
+.unselected-trans
+	+opacity(0.5)

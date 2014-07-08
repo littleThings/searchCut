@@ -1,0 +1,106 @@
+/* line 3, ../sass/settingPage_style.sass */
+body {
+  background: #fcfdf4;
+}
+
+/* line 6, ../sass/settingPage_style.sass */
+.all-short-cut-list {
+  background: #c6e8eb;
+}
+/* line 8, ../sass/settingPage_style.sass */
+.all-short-cut-list thead {
+  background: #3f6589;
+  color: #fcfdf4;
+}
+/* line 12, ../sass/settingPage_style.sass */
+.all-short-cut-list thead tr td {
+  vertical-align: middle;
+}
+
+/* line 16, ../sass/settingPage_style.sass */
+.container {
+  margin-top: 15px;
+}
+
+/* line 20, ../sass/settingPage_style.sass */
+.display-none {
+  display: none;
+}
+
+/* line 35, ../sass/settingPage_style.sass */
+.un-remove-state-icon {
+  width: 20px;
+  height: 20px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  border-radius: 25px;
+  background: red;
+  color: white;
+  text-align: center;
+  border: 2px solid white;
+  font-size: 0.8em;
+  cursor: pointer;
+  margin: auto;
+  -webkit-box-shadow: black 1px 1px 5px;
+  -moz-box-shadow: black 1px 1px 5px;
+  box-shadow: black 1px 1px 5px;
+}
+
+/* line 39, ../sass/settingPage_style.sass */
+.remove-state-icon {
+  width: 20px;
+  height: 20px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  border-radius: 25px;
+  background: red;
+  color: white;
+  text-align: center;
+  border: 2px solid white;
+  font-size: 0.8em;
+  cursor: pointer;
+  margin: auto;
+  -webkit-transform: rotate(90deg);
+  -webkit-box-shadow: black 1px -1px 5px;
+  -moz-box-shadow: black 1px -1px 5px;
+  box-shadow: black 1px -1px 5px;
+}
+
+/* line 44, ../sass/settingPage_style.sass */
+.searchCut-short-cut {
+  text-align: right;
+}
+
+/* line 47, ../sass/settingPage_style.sass */
+.short-cut-prefix {
+  position: absolute;
+  z-index: 20;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+/* line 53, ../sass/settingPage_style.sass */
+#detail-col-setting {
+  background: #efecca;
+}
+
+/* line 56, ../sass/settingPage_style.sass */
+.copy-right {
+  text-align: center;
+}
+
+/* line 59, ../sass/settingPage_style.sass */
+.switch-checkbox {
+  position: relative;
+  top: 5px;
+}
+
+/* line 63, ../sass/settingPage_style.sass */
+.unselected-trans {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+}
