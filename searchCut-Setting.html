@@ -6,6 +6,7 @@
 	<script type="text/javascript" src="./js/underscore-min.js"></script>	
 	<script type="text/javascript" src="./js/bootstrap.min.js"></script>	
 	<script type="text/javascript" src="./js/keycode.js"></script>	
+	<script type="text/javascript" src="./js/init_storageData.js"></script>	
 	<script type="text/javascript" src="./js/searchCut-Setting.js"></script>	
 
 </head>
@@ -33,14 +34,14 @@
 				<tr class="display-" id="detail-col-setting">
 					<td>
 						<select class="form-control" id="name-setting">
-							<option>Automatically Detect</option>
 							<option>Manual</option>
+							<option>Automatically Detect</option>
 						</select>
 					</td>
 					<td>
 						<select class="form-control" id="url-setting">
-							<option>Automatically Detect</option>
 							<option>Manual</option>
+							<option>Automatically Detect</option>
 						</select>
 					</td>
 					<td>
@@ -59,7 +60,7 @@
 						<input class="form-control " id="searchCut-new-url"></input>
 					</td>
 					<td>
-						<label class="short-cut-prefix">ALT + </label>
+						<label class="short-cut-prefix" id="searhCut-new-prefix"></label>
 						<input class=" form-control searchCut-short-cut" id="searchCut-new-shortcut"></input>
 					</td>
 					<td>
@@ -135,7 +136,7 @@
 					<input class="form-control searchCut-url-prefix" disabled value="<%=url_prefix%>"></input>
 				</td>
 				<td>
-					<label class="short-cut-prefix"><%=prefix_key%></label>
+					<label class="short-cut-prefix"><%=prefix_key%> + </label>
 					<input class="form-control searchCut-short-cut" disabled value="<%=keyChar%>"></input>
 				</td>
 				<td>
@@ -153,7 +154,7 @@
 					<input class="form-control searchCut-url-prefix" value="<%=url_prefix%>"></input>
 				</td>
 				<td>
-					<label class="short-cut-prefix"><%=prefix_key%></label>
+					<label class="short-cut-prefix"><%=prefix_key%> + </label>
 					<input class="form-control searchCut-short-cut" value="<%=keyChar%>"></input>
 				</td>
 				<td>

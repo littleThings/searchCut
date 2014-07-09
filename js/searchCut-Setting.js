@@ -1,6 +1,7 @@
 $(function(){
 	//UI.__reloadTestingData();
-	UI.init();
+	//UI.init();
+	UI.__clearStorage();
 })
 
 
@@ -8,12 +9,6 @@ var UI = {
 	exist_shortCut: [],
 	init: function(){
 		UI.loadSetting();
-		//UI.saveSetting();
-		//UI.bind_editBtn();
-		//UI.bind_removeBtn();
-		//UI.bind_setShortCut();
-		//UI.bind_setPrefixKey();
-		//UI.bind_switchCheckbox();
 	},
 	bind_editBtn: function(){
 		$('#edit-btn').off('click.editBtn');
@@ -68,8 +63,6 @@ var UI = {
 		$('.searchCut-short-cut').on('keydown.shortCut',function(event){
 			var $currentDOM = $(this);
 			var pre_keyChar = $currentDOM.val();
-			console.log(UI.exist_shortCut);
-			console.log(UI.exist_shortCut.indexOf(event.keyCode));
 			if(event.keyCode in _keyCode_alph_num_inverse && UI.exist_shortCut.indexOf(event.keyCode) < 0){
 				var  new_keyChar = _keyCode_alph_num_inverse[event.keyCode];
 				setTimeout(function(){
@@ -172,45 +165,62 @@ var UI = {
 			}
 		}
 	},
+	generateTemplate: function(storageData){
+		for (key in storageData.current_searchCut){
+			var enable = ((storageData.current_searchCut[key].enable) ? 'checked' : '');
+			var tmp = _.template($('#short-cut-list-template').html(), {
+				name: storageData.current_searchCut[key].name,
+				url_prefix: storageData.current_searchCut[key].url_prefix,
+				keyChar: _keyCode_alph_num_inverse[key],
+				prefix_key: storageData.prefix_key,
+				enable: enable
+			});
+			$('#short-cut-list-tbody').append(tmp);
+			UI.exist_shortCut.push(parseInt(key));
+		}
+		//init new line prefix_key
+		$('#searhCut-new-prefix').html(storageData.prefix_key + ' + ');
+
+		//init setting bar state
+		$('#prefixKey-setting').val(storageData.prefix_key);
+		$('#name-setting').val(storageData.name_setting);
+		$('#url-setting').val(storageData.url_setting);	
+	},
 	loadSetting: function(){
 		chrome.storage.local.get(function(items){
-			//console.log(items.current_searchCut);
-			for (key in items.current_searchCut){
-				var enable = ((items.current_searchCut[key].enable) ? 'checked' : '');
-				var tmp = _.template($('#short-cut-list-template').html(), {
-					name: items.current_searchCut[key].name,
-					url_prefix: items.current_searchCut[key].url_prefix,
-					keyChar: _keyCode_alph_num_inverse[key],
-					prefix_key: items.prefix_key,
-					enable: enable
-				});
-				$('#short-cut-list-tbody').append(tmp);
-				UI.exist_shortCut.push(parseInt(key));
+			if(! _.isEmpty(items)){
+				console.log('load storage data');
+				UI.generateTemplate(items);						
 			}
-			//UI.bind_all_event();
+			else{ // For never set only
+				console.log('load init data')
+				UI.generateTemplate(init_storageData);
+			}
 			UI.bind_editBtn();
 			UI.bind_removeBtn();
 			UI.bind_setShortCut();
 			UI.bind_setPrefixKey();
 			UI.bind_switchCheckbox();
 			UI.bind_addBtn();
-			//UI.bind_deleteBtn();
 		})
 	},
 	saveSetting: function(){
 		//@ Store data prototype
 		var storageData = {
 			"prefix_key": NaN,
-			"current_searchCut": {},
-			"origin_searchCut": {
-				"71":{"url_prefix":"https://www.google.com/?#q=","name":"Google Search", "enable": true},
-				"73":{"url_prefix":"https://www.google.com/search?hl=zh-TW&site=imghp&tbm=isch&source=hp&q=","name":"Google Image Search", "enable": true},
-				"77":{"url_prefix":"https://www.google.com/maps/place/","name":"Google Map", "enable": true},
-				"89":{"url_prefix":"https://www.youtube.com/results?search_query=","name":"Youtube", "enable": true}
-			},
+			"name_setting": NaN,
+			"url_setting": NaN,
+			"current_searchCut": {}
 		};
+		// Get the setting bar state
 		var prefix_key = $('#prefixKey-setting').val();
+		var name_setting = $('#name-setting').val();
+		var url_setting = $('#url-setting').val();
 		storageData.prefix_key = prefix_key;
+		storageData.name_setting = name_setting;
+		storageData.url_setting = url_setting;
+
+		// Get the all the shortcut setting
 		$('.searchCut-list-el').each(function(i,e){
 			var $currentRow = $(e);
 			var shortCut_key = _keyCode_alph_num[$currentRow.find('.searchCut-short-cut').val()];
@@ -223,27 +233,14 @@ var UI = {
 				enable: enable
 			};
 		});
-		console.log(storageData);
 		// Store the data!
 		chrome.storage.local.set(storageData);	
 	},
 	__reloadTestingData: function(){
-		var storageData = {
-			"prefix_key": NaN,
-			"current_searchCut": {
-				"71":{"url_prefix":"https://www.google.com/?#q=","name":"Google Search", "enable": true},
-				"73":{"url_prefix":"https://www.google.com/search?hl=zh-TW&site=imghp&tbm=isch&source=hp&q=","name":"Google Image Search", "enable": true},
-				"77":{"url_prefix":"https://www.google.com/maps/place/","name":"Google Map", "enable": true},
-				"89":{"url_prefix":"https://www.youtube.com/results?search_query=","name":"Youtube", "enable": true}
-			},
-			"origin_searchCut": {
-				"71":{"url_prefix":"https://www.google.com/?#q=","name":"Google Search", "enable": true},
-				"73":{"url_prefix":"https://www.google.com/search?hl=zh-TW&site=imghp&tbm=isch&source=hp&q=","name":"Google Image Search", "enable": true},
-				"77":{"url_prefix":"https://www.google.com/maps/place/","name":"Google Map", "enable": true},
-				"89":{"url_prefix":"https://www.youtube.com/results?search_query=","name":"Youtube", "enable": true}
-			}
-		};
 		// Store the data!
-		chrome.storage.local.set(storageData);			
+		chrome.storage.local.set(UI.init_storageData);			
+	},
+	__clearStorage: function(){
+		chrome.storage.local.clear();
 	}
 }

@@ -1,9 +1,11 @@
 $(function(){
 	console.log('Initialize searchCut!');
-	//searchCut.setKeyCode_map('M','https://www.google.com/maps/place/','Google Map',0);
-	//searchCut.setKeyCode_map('I','https://www.google.com/search?hl=zh-TW&site=imghp&tbm=isch&source=hp&q=','Google Image Search',0);
-	//searchCut.setKeyCode_map('G','https://www.google.com/?#q=','Google Search',0);
-	searchCut.loadLocalStorage();
+	searchCut.init();
+});
+
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+	console.log('New setting!');
+	searchCut.de_init();
 	searchCut.init();
 });
 
@@ -22,41 +24,48 @@ var keyCode_map = {};
 
 */
 var searchCut = {
+	prefix_key: NaN, // prototype: ['ALT', 'CTRL' ...]
 	init: function(){
-		$('body').on('keydown',function(event){
-			var keyCode = event.keyCode;
-			if(keyCode in keyCode_map && event.altKey === true){
-				var selectText = searchCut._getSelectionText();
-				searchCut._openSearchPage(selectText,keyCode_map[keyCode].url_prefix);
-			}
-		});
-	},
-	loadLocalStorage: function(){
-		/* Setting 
-		chrome.storage.local.set({
-			"prefix_key": "ALT",
-			"current_searchCut": {
-				"71":{"url_prefix":"https://www.google.com/?#q=","name":"Google Search"},
-				"73":{"url_prefix":"https://www.google.com/search?hl=zh-TW&site=imghp&tbm=isch&source=hp&q=","name":"Google Image Search"},
-				"77":{"url_prefix":"https://www.google.com/maps/place/","name":"Google Map"}
-			},
-			"origin_searchCut": {
-				"71":{"url_prefix":"https://www.google.com/?#q=","name":"Google Search"},
-				"73":{"url_prefix":"https://www.google.com/search?hl=zh-TW&site=imghp&tbm=isch&source=hp&q=","name":"Google Image Search"},
-				"77":{"url_prefix":"https://www.google.com/maps/place/","name":"Google Map"}
-			}	
-		});
-		*/
-		
-		console.log(keyCode_map);		
+		//Load the storage data first	
 		chrome.storage.local.get(function(items){
-			console.log(items.current_searchCut);
-			for (key in items.current_searchCut){
+			if(! _.isEmpty(items)){
+				console.log('load short cut from chrome.storage');
+				searchCut.bind_shortcut(items);
+			}
+			else{
+				console.log('load short cut from init storage data');
+				searchCut.bind_shortcut(init_storageData);
+			}
+		})
+	},
+	de_init: function(){
+		$('body').off('keydown.searchCut_shortcut');
+		searchCut.prefix_key= NaN;
+	},
+	bind_shortcut: function(items){
+		for (key in items.current_searchCut){
 				searchCut.setKeyCode_map(key,
 					items.current_searchCut[key].url_prefix,
 					items.current_searchCut[key].name,1);
 			}
-		})
+			searchCut.prefix_key = items.prefix_key.replace(/\s+/g,'').split('+');
+			$('body').on('keydown.searchCut_shortcut',function(event){
+				var keyCode = event.keyCode;
+				if(keyCode in keyCode_map 
+					&& event.altKey === searchCut.hasPrefix_key('ALT') 
+					&& event.ctrlKey === searchCut.hasPrefix_key('CTRL')){
+					var selectText = searchCut._getSelectionText();
+					searchCut._openSearchPage(selectText,keyCode_map[keyCode].url_prefix);
+				}
+		});
+	},
+	hasPrefix_key: function(keyChar){
+		if(searchCut.prefix_key.indexOf(keyChar) >= 0){			
+			return true
+		}
+		else{		
+			return false
+		}
 	},
 	/*
 	flag = 0 => by Name
