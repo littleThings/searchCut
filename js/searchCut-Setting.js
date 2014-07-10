@@ -1,7 +1,7 @@
 $(function(){
 	//UI.__reloadTestingData();
-	//UI.init();
-	UI.__clearStorage();
+	UI.init();
+	//UI.__clearStorage();
 })
 
 
@@ -150,8 +150,33 @@ var UI = {
 				UI.bind_removeBtn();
 				UI.bind_setShortCut();
 				UI.bind_switchCheckbox();
+				//Clear the val
+				$('#searchCut-new-name').val('');
+				$('#searchCut-new-url').val('');
+				$('#searchCut-new-shortcut').val('');
 			}
 		});
+	},
+	bind_resetBtn: function(){
+		$('#searchCut-reset-btn').on('click',function(){
+			if(confirm('Are you sure want to reset the setting?\n All of your setting would lost.')){
+				UI.__clearStorage();
+				UI.init();
+				location.reload();
+			}
+		});
+	},
+	bind_autoNameDetect: function(){
+		$('#searchCut-new-url').on('change',function(){
+			var url = $(this).val();			
+		    $.get(url,function(data){
+		    	var title = data.split('<title>')[1].split('</title>')[0];
+		    	$('#searchCut-new-name').val(title);
+		    });
+		})
+	},
+	bind_autoUrlDetect: function(){
+
 	},
 	scan_deletedShortCut: function(){
 		var deletedCount = $('.remove-state-icon').length;
@@ -202,6 +227,8 @@ var UI = {
 			UI.bind_setPrefixKey();
 			UI.bind_switchCheckbox();
 			UI.bind_addBtn();
+			UI.bind_autoNameDetect();
+			UI.bind_resetBtn();
 		})
 	},
 	saveSetting: function(){

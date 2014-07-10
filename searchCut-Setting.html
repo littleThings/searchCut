@@ -15,29 +15,25 @@
 		<table class="table table-hover all-short-cut-list">
 			<thead>
 				<tr>
-					<td width="20%">
-						Name
-					</td>
 					<td width="60%">
 						URL Prefix
+					</td>
+					<td width="20%">
+						Name
 					</td>
 					<td width="15%">
 						Short Cut
 					</td>
 					<td width="5%">
-						<button type="button" id="edit-btn" class="btn btn-default">Edit</button>
-						<button type="button" id="edit-done-btn" class="btn btn-danger display-none">Done</button>
+						<center>
+							<button type="button" id="edit-btn" class="btn btn-default">Edit</button>
+							<button type="button" id="edit-done-btn" class="btn btn-danger display-none">Done</button>
+						</center>
 					</td>
 				</tr>	
 			</thead>
 			<tbody id="short-cut-list-tbody">
 				<tr class="display-" id="detail-col-setting">
-					<td>
-						<select class="form-control" id="name-setting">
-							<option>Manual</option>
-							<option>Automatically Detect</option>
-						</select>
-					</td>
 					<td>
 						<select class="form-control" id="url-setting">
 							<option>Manual</option>
@@ -45,19 +41,28 @@
 						</select>
 					</td>
 					<td>
+						<select class="form-control" id="name-setting">
+							<option>Manual</option>
+							<option>Automatically Detect</option>
+						</select>
+					</td>
+					
+					<td>
 						<select class="form-control" id="prefixKey-setting">
 							<option>ALT</option>
 							<option>ALT + CTRL</option>
 						</select>
 					</td>
-					<td></td>
+					<td>
+						<button class="btn btn-warning" id="searchCut-reset-btn">RESET</button>
+					</td>
 				</tr>	
 				<tr class="display-" id="new-short-cut-row">
 					<td>
-						<input class="form-control " id="searchCut-new-name"></input>
+						<input class="form-control " id="searchCut-new-url"></input>
 					</td>
 					<td>
-						<input class="form-control " id="searchCut-new-url"></input>
+						<input class="form-control " id="searchCut-new-name"></input>
 					</td>
 					<td>
 						<label class="short-cut-prefix" id="searhCut-new-prefix"></label>
@@ -69,56 +74,6 @@
 						</center>
 					</td>
 				</tr>
-				<!--
-				<tr>
-					<td>
-						<input class="form-control " disabled value="Google Search"></input>
-					</td>
-					<td>
-						<input class="form-control " disabled value="https://www.google.com/?#q="></input>
-					</td>
-					<td >
-						<label class="short-cut-prefix">ALT + </label>
-						<input class=" form-control short-cut-input" disabled value="G"></input>
-					</td>
-					<td>
-						<center><input type="checkbox" checked class="switch-checkbox"></center>
-						<div class="display-none remove-icon un-remove-state-icon">ㄧ</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input class="form-control" disabled value="Google Map"></input>
-					</td>
-					<td>
-						<input class="form-control " disabled value="https://www.google.com/maps/place/"></input>
-					</td>
-					<td>
-						<label class="short-cut-prefix">ALT + </label>
-						<input class="form-control short-cut-input" disabled value="M"></input>
-					</td>
-					<td>
-						<center><input type="checkbox" checked class="switch-checkbox"></center>
-						<div class="display-none remove-icon un-remove-state-icon">ㄧ</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input class="form-control " disabled value="Google Image Search"></input>
-					</td>
-					<td>
-						<input class="form-control " disabled value="https://www.google.com/search?hl=zh-TW&site=imghp&tbm=isch&source=hp&q="></input>
-					</td>
-					<td>
-						<label class="short-cut-prefix">ALT + </label>
-						<input class="form-control short-cut-input" disabled value="I"></input>
-					</td>
-					<td>
-						<center><input type="checkbox" checked  class="switch-checkbox"></center>
-						<div class="display-none remove-icon un-remove-state-icon">ㄧ</div>
-					</td>
-				</tr>
-				-->
 			</tbody>
 		</table>
 		<div class="well well-sm copy-right">
@@ -126,14 +81,14 @@
 			<span class="glyphicon glyphicon-envelope"></span>
 			jordan00830@gmail.com			
 		</div>
-		
+		<!-- Template for shortcut list -->
 		<script class="display-none" id="short-cut-list-template">
 			<tr class="searchCut-list-el">
 				<td>
-					<input class="form-control searchCut-name" disabled value="<%=name%>"></input>
+					<input class="form-control searchCut-url-prefix" disabled value="<%=url_prefix%>"></input>
 				</td>
 				<td>
-					<input class="form-control searchCut-url-prefix" disabled value="<%=url_prefix%>"></input>
+					<input class="form-control searchCut-name" disabled value="<%=name%>"></input>
 				</td>
 				<td>
 					<label class="short-cut-prefix"><%=prefix_key%> + </label>
@@ -145,13 +100,14 @@
 				</td>
 			</tr>
 		</script>
+		<!-- Template for add new short cut -->
 		<script class="display-none" id="short-cut-newline-template">
 			<tr class="searchCut-list-el">
 				<td>
-					<input class="form-control searchCut-name" value="<%=name%>"></input>
+					<input class="form-control searchCut-url-prefix" value="<%=url_prefix%>"></input>
 				</td>
 				<td>
-					<input class="form-control searchCut-url-prefix" value="<%=url_prefix%>"></input>
+					<input class="form-control searchCut-name" value="<%=name%>"></input>
 				</td>
 				<td>
 					<label class="short-cut-prefix"><%=prefix_key%> + </label>
