@@ -1,6 +1,5 @@
 #About searchCut
-* This is a chrome extension for providing keyboard shortcut for quick search. 
-	When browsing the web, you found some keywords that you want to search on Google, Youtube, e-bay, etc. Just heightlight the keywords and use shortcut to search. The search result will show in new tab.
+* SearchCut is a chrome extension for providing keyboard shortcut search. Just highlight the keywords and press keyboard shortcut. There will be a pop-up tab which shows the search results on Google, Youtube, e-bay, etc.
 	
 #Try the beta version!
 * Main features has been completed, but it still need some testing!
