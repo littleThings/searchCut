@@ -104,3 +104,13 @@ body {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
 }
+
+/* line 67, ../sass/settingPage_style.sass */
+#setting-page-title .title-text {
+  font-size: 2.5em;
+  vertical-align: bottom;
+}
+/* line 70, ../sass/settingPage_style.sass */
+#setting-page-title span {
+  font-size: 2em;
+}

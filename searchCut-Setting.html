@@ -9,9 +9,19 @@
 	<script type="text/javascript" src="./js/init_storageData.js"></script>	
 	<script type="text/javascript" src="./js/searchCut-Setting.js"></script>	
 	<title>searchCut Setting</title>
+	<link rel="shortcut icon" type="image/png" href="./imgs/favicon.png"/>
 </head>
 <body>
 	<div class="container">
+		<div class="well well-sm" id="setting-page-title">
+			
+			<img src="./imgs/icon.png" width="70px"></img>
+			<span class="title-text">
+				earchCut Setting
+			</span>
+			<span class="glyphicon glyphicon-wrench"></span>
+
+		</div>
 		<table class="table table-hover all-short-cut-list">
 			<thead>
 				<tr>
@@ -34,7 +44,7 @@
 			</thead>
 			<tbody id="short-cut-list-tbody">
 				<!-- searchCut setting -->
-				<tr class="display-" id="detail-col-setting">
+				<tr class="display-none" id="detail-col-setting">
 					<td>
 						<select class="form-control" id="url-setting">
 							<option>Automatically Detect</option>
@@ -60,7 +70,7 @@
 				</tr>
 
 				<!-- New shortcut input -->	
-				<tr class="display-" id="new-short-cut-row">
+				<tr class="display-none" id="new-short-cut-row">
 					<td>
 						<input class="form-control " id="searchCut-new-url"></input>
 					</td>
