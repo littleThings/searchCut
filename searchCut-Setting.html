@@ -8,10 +8,10 @@
 	<script type="text/javascript" src="./js/keycode.js"></script>	
 	<script type="text/javascript" src="./js/init_storageData.js"></script>	
 	<script type="text/javascript" src="./js/searchCut-Setting.js"></script>	
-
+	<title>searchCut Setting</title>
 </head>
 <body>
-	<div class="container" width="750px">
+	<div class="container">
 		<table class="table table-hover all-short-cut-list">
 			<thead>
 				<tr>
@@ -33,17 +33,18 @@
 				</tr>	
 			</thead>
 			<tbody id="short-cut-list-tbody">
+				<!-- searchCut setting -->
 				<tr class="display-" id="detail-col-setting">
 					<td>
 						<select class="form-control" id="url-setting">
-							<option>Manual</option>
 							<option>Automatically Detect</option>
+							<option>Manual</option>
 						</select>
 					</td>
 					<td>
 						<select class="form-control" id="name-setting">
-							<option>Manual</option>
 							<option>Automatically Detect</option>
+							<option>Manual</option>
 						</select>
 					</td>
 					
@@ -56,7 +57,9 @@
 					<td>
 						<button class="btn btn-warning" id="searchCut-reset-btn">RESET</button>
 					</td>
-				</tr>	
+				</tr>
+
+				<!-- New shortcut input -->	
 				<tr class="display-" id="new-short-cut-row">
 					<td>
 						<input class="form-control " id="searchCut-new-url"></input>
@@ -76,11 +79,14 @@
 				</tr>
 			</tbody>
 		</table>
+		
+		<!-- Copy right -->
 		<div class="well well-sm copy-right">
 			©Power by Jordan, Hsu. &nbsp;&nbsp;&nbsp;&nbsp; 
 			<span class="glyphicon glyphicon-envelope"></span>
 			jordan00830@gmail.com			
 		</div>
+
 		<!-- Template for shortcut list -->
 		<script class="display-none" id="short-cut-list-template">
 			<tr class="searchCut-list-el">
@@ -100,6 +106,7 @@
 				</td>
 			</tr>
 		</script>
+
 		<!-- Template for add new short cut -->
 		<script class="display-none" id="short-cut-newline-template">
 			<tr class="searchCut-list-el">
@@ -119,6 +126,32 @@
 				</td>
 			</tr>
 		</script>
+
+		<!-- Automaticlly url detection modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="myModalLabel">Automatic URL Prefix Generator</h4>
+					</div>
+					<div class="modal-body">
+						<div>
+							<h3>Paste the search result url here!</h3>
+							<input class="form-control" id="autoUrl-result-url"></input>
+						</div>
+						<div>
+							<h3>Paste your query here!</h3>
+							<input class="form-control " id="autoUrl-user-query" ></input>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" id="close-modal-btn" data-dismiss="modal">Cancle</button>
+						<button type="button" class="btn btn-primary" id="autoUrl-confirm-btn">Confirm</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

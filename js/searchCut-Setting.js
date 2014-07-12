@@ -167,16 +167,49 @@ var UI = {
 		});
 	},
 	bind_autoNameDetect: function(){
-		$('#searchCut-new-url').on('change',function(){
-			var url = $(this).val();			
-		    $.get(url,function(data){
-		    	var title = data.split('<title>')[1].split('</title>')[0];
-		    	$('#searchCut-new-name').val(title);
-		    });
-		})
+		$('#searchCut-new-name').on('focus',function(){
+			if($('#name-setting').val() === 'Automatically Detect'){
+				var url = $('#searchCut-new-url').val();			
+			    if(url !== ''){
+					$.get(url,function(data){
+				    	var title = data.split('<title>')[1].split('</title>')[0];
+				    	$('#searchCut-new-name').val(title);
+				    });
+			    }
+			}
+		});	
 	},
 	bind_autoUrlDetect: function(){
+		$('#searchCut-new-url').on('focus',function(){
+			if($('#url-setting').val() === 'Automatically Detect'){
+				console.log('focus!');
+				if($(this).val() === '')
+					$('#myModal').modal();
+			}
+		});
+		$('#autoUrl-confirm-btn').on('click',function(){
+			if($('#url-setting').val() === 'Automatically Detect'){
+				var originUrl = $('#autoUrl-result-url').val();
+				var searchQuery = $('#autoUrl-user-query').val().replace(/\s+/g,"+");
+				var decodeUrl = decodeURIComponent(originUrl);
 
+				if(decodeUrl.indexOf(searchQuery) < 0)
+					alert('Parsing error, please try manual mode');
+				else{
+					var urlPrefix = decodeUrl.split(searchQuery)[0];
+				
+					// Append the generated url
+					$('#searchCut-new-url').val(urlPrefix);
+					// Close modal
+					$('#close-modal-btn').click();
+				}
+				console.log('origin_url: ' + originUrl);
+				console.log('search_query: ' + searchQuery);
+				console.log('decodeurl: ' + decodeURIComponent(originUrl));
+				console.log('substring position: '+ decodeUrl.indexOf(searchQuery));
+				console.log('urlPrefix: '+ urlPrefix);
+			}
+		});
 	},
 	scan_deletedShortCut: function(){
 		var deletedCount = $('.remove-state-icon').length;
@@ -227,8 +260,9 @@ var UI = {
 			UI.bind_setPrefixKey();
 			UI.bind_switchCheckbox();
 			UI.bind_addBtn();
-			UI.bind_autoNameDetect();
 			UI.bind_resetBtn();
+			UI.bind_autoNameDetect();
+			UI.bind_autoUrlDetect();
 		})
 	},
 	saveSetting: function(){
