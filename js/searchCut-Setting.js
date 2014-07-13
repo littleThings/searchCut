@@ -6,7 +6,7 @@ $(function(){
 
 
 var UI = {
-	exist_shortCut: [],
+	exist_shortCut: [], // [keyCode(int),...]
 	init: function(){
 		UI.loadSetting();
 	},
@@ -68,6 +68,10 @@ var UI = {
 				setTimeout(function(){
 					$currentDOM.val('');
 					$currentDOM.val(new_keyChar);
+					//Update exist_shortCut Array
+					var pre_keyCode = _keyCode_alph_num[pre_keyChar];
+					UI.exist_shortCut.splice(UI.exist_shortCut.indexOf(pre_keyCode)
+						,1, event.keyCode);
 				},20);
 			}
 			else if(UI.exist_shortCut.indexOf(event.keyCode) >= 0){
@@ -191,23 +195,29 @@ var UI = {
 			if($('#url-setting').val() === 'Automatically Detect'){
 				var originUrl = $('#autoUrl-result-url').val();
 				var searchQuery = $('#autoUrl-user-query').val().replace(/\s+/g,"+");
-				var decodeUrl = decodeURIComponent(originUrl);
+				try{
+					var decodeUrl = decodeURIComponent(originUrl);
+					if(decodeUrl.indexOf(searchQuery) < 0)
+						alert('Parsing error, please try manual mode');
+					else{
+						// ============ Parsing Success! ===========
+						var urlPrefix = decodeUrl.split(searchQuery)[0];
+					
+						//Clear the modal value
+						$('#autoUrl-result-url').val('');
+						$('#autoUrl-user-query').val('');
 
-				if(decodeUrl.indexOf(searchQuery) < 0)
-					alert('Parsing error, please try manual mode');
-				else{
-					var urlPrefix = decodeUrl.split(searchQuery)[0];
-				
-					// Append the generated url
-					$('#searchCut-new-url').val(urlPrefix);
-					// Close modal
-					$('#close-modal-btn').click();
+						// Append the generated url
+						$('#searchCut-new-url').val(urlPrefix);
+						// Close modal
+						$('#close-modal-btn').click();
+					}
 				}
-				console.log('origin_url: ' + originUrl);
-				console.log('search_query: ' + searchQuery);
-				console.log('decodeurl: ' + decodeURIComponent(originUrl));
-				console.log('substring position: '+ decodeUrl.indexOf(searchQuery));
-				console.log('urlPrefix: '+ urlPrefix);
+				catch(e){
+					console.debug(e);
+					alert('Parsing error, please try manual mode');
+					$('#close-modal-btn').click();
+				}				
 			}
 		});
 	},

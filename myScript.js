@@ -29,11 +29,11 @@ var searchCut = {
 		//Load the storage data first	
 		chrome.storage.local.get(function(items){
 			if(! _.isEmpty(items)){
-				console.log('load short cut from chrome.storage');
+				console.log('load shortCut setting from chrome.storage');
 				searchCut.bind_shortcut(items);
 			}
 			else{
-				console.log('load short cut from init storage data');
+				console.log('load shortCut setting from init storage data');
 				searchCut.bind_shortcut(init_storageData);
 			}
 		})
@@ -45,18 +45,20 @@ var searchCut = {
 	bind_shortcut: function(items){
 		for (key in items.current_searchCut){
 				searchCut.setKeyCode_map(key,
-					items.current_searchCut[key].url_prefix,
-					items.current_searchCut[key].name,1);
+				items.current_searchCut[key].url_prefix,
+				items.current_searchCut[key].name,
+				items.current_searchCut[key].enable,1);
+		}
+		searchCut.prefix_key = items.prefix_key.replace(/\s+/g,'').split('+');
+		$('body').on('keydown.searchCut_shortcut',function(event){
+			var keyCode = event.keyCode;
+			if(keyCode in keyCode_map 
+				&& event.altKey === searchCut.hasPrefix_key('ALT') 
+				&& event.ctrlKey === searchCut.hasPrefix_key('CTRL')
+				&& keyCode_map[keyCode].enable === true){
+				var selectText = searchCut._getSelectionText();
+				searchCut._openSearchPage(selectText,keyCode_map[keyCode].url_prefix);
 			}
-			searchCut.prefix_key = items.prefix_key.replace(/\s+/g,'').split('+');
-			$('body').on('keydown.searchCut_shortcut',function(event){
-				var keyCode = event.keyCode;
-				if(keyCode in keyCode_map 
-					&& event.altKey === searchCut.hasPrefix_key('ALT') 
-					&& event.ctrlKey === searchCut.hasPrefix_key('CTRL')){
-					var selectText = searchCut._getSelectionText();
-					searchCut._openSearchPage(selectText,keyCode_map[keyCode].url_prefix);
-				}
 		});
 	},
 	hasPrefix_key: function(keyChar){
@@ -71,17 +73,19 @@ var searchCut = {
 	flag = 0 => by Name
 	flag = 1 => by Code
 	*/
-	setKeyCode_map: function(keyName_Code, urlPrefix, pageName, flag){
+	setKeyCode_map: function(keyName_Code, urlPrefix, pageName, enable, flag){
 		if(flag === 0){
 			keyCode_map[_keyCode[keyName_Code]] = {
 				url_prefix: urlPrefix,
-				name: pageName
+				name: pageName,
+				enable: enable
 			}	
 		}
 		if(flag === 1){
 			keyCode_map[keyName_Code] = {
 				url_prefix: urlPrefix,
-				name: pageName
+				name: pageName,
+				enable: enable
 			}
 		}
 	},
