@@ -5,3 +5,8 @@
 * Main features has been completed, but it still need some testing!
 
 * [Just Try it](https://chrome.google.com/webstore/detail/empinghjjjppongbmbidklliehoaljog/publish-accepted)
+
+#Some failed url parsing
+* [PCHOME](http://www.pcstore.com.tw/)
+* [Ruten](http://www.ruten.com.tw/) 
+* 
