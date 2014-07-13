@@ -100,12 +100,13 @@ var searchCut = {
 	},
 	_openSearchPage: function(selectText, url){
 		if(selectText !== ""){
-			var win = window.open(url + selectText,'_blank');
+			console.log(encodeURIComponent(selectText));
+			console.log(selectText);
+			var win = window.open(url + encodeURIComponent(selectText),'_blank');
 			win.focus();
         }
         else{
         	alert('Please hightlight the text you want to search!');
         }
 	}
-}
- 
+};
