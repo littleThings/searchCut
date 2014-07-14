@@ -55,6 +55,8 @@ var searchCut = {
 			if(keyCode in keyCode_map 
 				&& event.altKey === searchCut.hasPrefix_key('ALT') 
 				&& event.ctrlKey === searchCut.hasPrefix_key('CTRL')
+				&& event.metaKey === searchCut.hasPrefix_key('COMMAND')
+				&& event.shiftKey === searchCut.hasPrefix_key('SHIFT')
 				&& keyCode_map[keyCode].enable === true){
 				var selectText = searchCut._getSelectionText();
 				searchCut._openSearchPage(selectText,keyCode_map[keyCode].url_prefix);
