@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "searchCut",
   "description": "Providing keyboard shortcut for searching",
-  "version": "1.0.1",
+  "version": "1.0.2",
    "icons": {
     "128": "imgs/icon128.png",
     "48": "imgs/icon48.png",

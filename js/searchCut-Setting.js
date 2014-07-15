@@ -2,6 +2,7 @@ $(function(){
 	//UI.__reloadTestingData();
 	UI.init();
 	//UI.__clearStorage();
+	$('#myModal').modal();
 })
 
 
