@@ -102,8 +102,8 @@ var searchCut = {
 	},
 	_openSearchPage: function(selectText, url){
 		if(selectText !== ""){
-			console.log(encodeURIComponent(selectText));
-			console.log(selectText);
+			//console.log(encodeURIComponent(selectText));
+			//console.log(selectText);
 			var win = window.open(url + encodeURIComponent(selectText),'_blank');
 			win.focus();
         }

@@ -5,7 +5,10 @@
 * [Just Try it](https://chrome.google.com/webstore/detail/empinghjjjppongbmbidklliehoaljog/publish-accepted)
 * Main features has been completed, but it still need some testing!
 * Bugs
-  * Url parsing error when using big-5 encoding
+  * Url parsing error when...
+    * Use big-5 encoding
+    * Use unknown encryption in url
+    
 
 #Some parsing failed url
 * [PCHOME](http://www.pcstore.com.tw/)
